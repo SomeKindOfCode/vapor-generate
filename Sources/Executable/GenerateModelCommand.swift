@@ -15,7 +15,7 @@ final class GenerateModelCommand: Command {
     public let help = ["This command will generate model files based on schemas in Config/model"]
     public let console: ConsoleProtocol
     
-    private let sourceSchemes: URL = URL(fileURLWithPath: "./models/")
+    private let sourceSchemes: URL = URL(fileURLWithPath: "./Config/models/")
     private let destination: URL = URL(fileURLWithPath: "./Sources/App/Models/")
     
     public init(console: ConsoleProtocol) {
