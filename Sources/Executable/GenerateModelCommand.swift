@@ -69,6 +69,7 @@ final class GenerateModelCommand: Command {
         if FileManager.default.fileExists(atPath: destination.path) {
             console.print("> Model \"\(name)\" exists - skipping")
         } else {
+            console.print("Generating \(name)")
             try sourceCode.write(
                 to: destination, 
                 atomically: false, 
