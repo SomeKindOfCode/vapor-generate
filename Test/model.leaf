@@ -1,5 +1,5 @@
 //
-// <FILENAME>
+// #(modelName)
 //
 // Created by Vapor Model Generator
 //
@@ -8,13 +8,17 @@
 import Vapor
 import Fluent
 
-final class #(MODELNAME): Model {
+final class #(modelName): Model {
     var id: Node?
 
     #if(properties) {
         #loop(properties, "property") {
             var #(property.key): #(property.type)
         }
+    }
+
+    #if(table) {
+        static var entity = "#(table)"
     }
 
     // used by fluent internally
@@ -31,7 +35,7 @@ final class #(MODELNAME): Model {
     }
 }
 
-extension #(MODELNAME): Preparation {
+extension #(modelName): Preparation {
     static func prepare(_ database: Database) throws {
         // prepare database and create the scheme
         try database.create(self.entity) { model in

@@ -18,7 +18,8 @@ class SchemaLoader {
         let modelName = json["model"]?.string ?? at.baseFilename.capitalized
         
         return [
-            "MODELNAME": modelName.makeNode(),
+            "modelName": modelName.makeNode(),
+            "table": json["table"]?.string?.makeNode() ?? Node.null,
             "properties": self.properties(from: json["properties"])
         ]
     }
