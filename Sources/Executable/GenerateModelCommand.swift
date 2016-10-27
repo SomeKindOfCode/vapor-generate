@@ -56,6 +56,7 @@ final class GenerateModelCommand: Command {
         
         let stem = Stem(workingDirectory: ".")
         stem.register(PropertyPreparationTag())
+        stem.register(PropertyColumnTag())
         let template = try stem.spawnLeaf(raw: String(contentsOfFile: "model.leaf"))
         
         return try stem.render(template, with: context).toString()
@@ -70,11 +71,19 @@ final class GenerateModelCommand: Command {
             console.print("> Model \"\(name)\" exists - skipping")
         } else {
             console.print("Generating \(name)")
-            try sourceCode.write(
+            let postProducedSource = self.postProduction(sourceCode)
+            try postProducedSource.write(
                 to: destination, 
                 atomically: false, 
                 encoding: .utf8
             )
         }
+    }
+    
+    private func postProduction(_ sourceCode: String) -> String {
+        // We have to replace the HTML encoded quotation marks
+        // because we can't mix #raw and our custom tags in the leaf template
+        // ¯\_(ツ)_/¯ 
+        return sourceCode.replacingOccurrences(of: "&quot;", with: "\"")
     }
 }

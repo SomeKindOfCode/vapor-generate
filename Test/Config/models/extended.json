@@ -7,9 +7,10 @@
            "type": "String"
        },
         {
-                   "key": "age",
-                   "type": "Int"
-                   
-                   }
+       "key": "age",
+       "type": "Int",
+       "optional": true,
+       "column": "item_age"
+       }
     ]
 }

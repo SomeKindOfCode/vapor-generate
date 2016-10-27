@@ -7,6 +7,7 @@
 //
 
 import Leaf
+import Node
 
 class PropertyPreparationTag: BasicTag {
     let name = "propprep"
@@ -24,7 +25,15 @@ class PropertyPreparationTag: BasicTag {
         
         let parameters = self.parameters(for: propertyConfig)
         
-        return "\(typeMapping[type] ?? type)(\(parameters))".makeNode()
+        let column = PropertyColumnTag()
+        let columnName = try column.run(arguments: arguments)?.string ?? ""
+        
+        return String(
+            format: "%@(\"%@\"%@)",
+            typeMapping[type] ?? type,
+            columnName,
+            parameters
+        ).makeNode()
     }
     
     private func parameters(for propertyConfig: [String:Polymorphic]) -> String {
