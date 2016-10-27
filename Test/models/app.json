@@ -1,0 +1,8 @@
+{
+    "properties": [
+        {
+            "key": "name",
+            "type": "String"
+        }
+    ]
+}

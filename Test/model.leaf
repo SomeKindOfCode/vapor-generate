@@ -1,0 +1,51 @@
+//
+// <FILENAME>
+//
+// Created by Vapor Model Generator
+//
+//
+
+import Vapor
+import Fluent
+
+final class #(MODELNAME): Model {
+    var id: Node?
+
+    #if(properties) {
+        #loop(properties, "property") {
+            var #(property.key): #(property.type)
+        }
+    }
+
+    // used by fluent internally
+    var exists: Bool = false
+
+    init(node: Node, in context: Context) throws {
+        self.id = try node.extract("id")
+
+        #if(properties) {
+            #loop(properties, "property") {
+                self.#(property.key) = try node.extract("#(property.key)")
+            }
+        }
+    }
+}
+
+extension #(MODELNAME): Preparation {
+    static func prepare(_ database: Database) throws {
+        // prepare database and create the scheme
+        try database.create(self.entity) { model in
+            model.id()
+            
+            #if(properties) {
+                #loop(properties, "property") {
+                    model.#propprep(property)
+                }
+            }
+        }
+    }
+
+    static func revert(_ database: Database) throws {
+        throw PreparationError.revertImpossible
+    }
+}

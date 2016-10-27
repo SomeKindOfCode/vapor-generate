@@ -1,0 +1,14 @@
+{
+    "model": "AnotherModel",
+    "properties": [
+       {
+           "key": "something",
+           "type": "String"
+       },
+        {
+                   "key": "age",
+                   "type": "Int"
+                   
+                   }
+    ]
+}
