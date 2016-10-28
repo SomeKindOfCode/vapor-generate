@@ -11,7 +11,7 @@ import Foundation
 import Leaf
 
 final class GenerateModelCommand: Command {
-    public let id = "generate"
+    public let id = "model"
     public let help = ["This command will generate model files based on schemas in Config/model"]
     public let console: ConsoleProtocol
     
