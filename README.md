@@ -48,4 +48,5 @@ The rendered code doesn't look pretty as the generator is currently using the Le
       - [ ] optionals
       - [ ] default values
       - [ ] length
+- [ ] relations
 - [ ] fix indentation (maybe not using leaf)

@@ -33,6 +33,18 @@ final class #(modelName): Model {
             }
         }
     }
+
+	func makeNode(context: Context) throws -> Node {
+        // everything here will land in the database
+        return try Node(node: [
+            "id": self.id,
+			#if(properties) {
+	            #loop(properties, "property") {
+	                "#propcolumn(property)": self.#(property.key)
+	            }
+	        }
+        ])
+    }
 }
 
 extension #(modelName): Preparation {
@@ -40,7 +52,7 @@ extension #(modelName): Preparation {
         // prepare database and create the scheme
         try database.create(self.entity) { model in
             model.id()
-            
+
             #if(properties) {
                 #loop(properties, "property") {
                     model.#propprep(property)
